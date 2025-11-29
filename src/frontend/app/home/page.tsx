@@ -23,19 +23,19 @@ export default function HomePage() {
   useEffect(() => {
     async function load() {
       try {
-        const [rec, trending, popular, newR, list] = await Promise.all([
+        const [rec, trending, popular, newR, acclaimed] = await Promise.all([
+          apiFetch('/api/media/recommended?limit=6'),
           apiFetch('/api/media?limit=6'),
-          apiFetch('/api/media/popular?limit=6'),
           apiFetch('/api/media/popular?limit=6'),
           apiFetch('/api/media/new-releases?limit=6'),
-          apiFetch('/api/media?limit=6'),
+          apiFetch('/api/media?limit=6&sort=rating'),
         ])
 
-        setRecommendedItems(rec.items || rec.media || [])
-        setTrendingItems(trending.items || trending.media || [])
-        setPopularItems(popular.items || popular.media || [])
-        setNewReleases(newR.items || newR.media || [])
-        setAcclaimedItems(list.items || list.media || [])
+        setRecommendedItems(rec.items || rec.media || rec || [])
+        setTrendingItems(trending.items || trending.media || trending || [])
+        setPopularItems(popular.items || popular.media || popular || [])
+        setNewReleases(newR.items || newR.media || newR || [])
+        setAcclaimedItems(acclaimed.items || acclaimed.media || acclaimed || [])
       } catch (err) {
         console.error('Failed to load media lists', err)
       }

@@ -81,7 +81,9 @@ export class MediaController {
   async popular(@Query('limit') limit?: string) {
     const l = limit ? parseInt(limit) : 10;
     const items = await this.findPopularUseCase.execute(l);
-    return items.map((m) => this.toDto(m));
+    return {
+      items: items.map((m) => this.toDto(m)),
+    };
   }
 
   @Get("new-releases")
@@ -90,7 +92,9 @@ export class MediaController {
   async newReleases(@Query('limit') limit?: string) {
     const l = limit ? parseInt(limit) : 10;
     const items = await this.findNewReleasesUseCase.execute(l);
-    return items.map((m) => this.toDto(m));
+    return {
+      items: items.map((m) => this.toDto(m)),
+    };
   }
 
   @Get('recommended')
@@ -100,7 +104,9 @@ export class MediaController {
     const list = genres ? genres.split(',').map(g => g.trim()) : [];
     const l = limit ? parseInt(limit) : 10;
     const items = await this.findRecommendedUseCase.execute(list, l);
-    return items.map((m) => this.toDto(m));
+    return {
+      items: items.map((m) => this.toDto(m)),
+    };
   }
 
   @Get("search")
@@ -108,7 +114,9 @@ export class MediaController {
   @ApiResponse({ status: 200, type: [MediaResponseDto] })
   async search(@Query() dto: SearchMediaDto) {
     const items = await this.searchMediaUseCase.execute(dto);
-    return items.map((m) => this.toDto(m));
+    return {
+      items: items.map((m) => this.toDto(m)),
+    };
   }
 
   @Get(":id")

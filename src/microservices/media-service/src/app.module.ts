@@ -3,6 +3,7 @@ import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
+import { MediaModule } from "./presentation/modules/media.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { JwtModule } from "@nestjs/jwt";
       secret: process.env.JWT_SECRET || "your_jwt_secret_key",
       signOptions: { expiresIn: "24h" },
     }),
+    MediaModule,
   ],
   controllers: [],
   providers: [],
