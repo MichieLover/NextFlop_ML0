@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { MongooseModule } from "@nestjs/mongoose";
+import { UsersModule } from "../../users/users.module";
 
 // Controllers
 import { AuthController } from "../controllers/auth.controller";
@@ -30,6 +31,7 @@ import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: UserDocument.name, schema: UserSchema }]),
+    UsersModule,
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || "your-super-secret-jwt-key",

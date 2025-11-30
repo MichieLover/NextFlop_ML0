@@ -23,6 +23,6 @@ export class AuthController {
   async login(@Body() dto: LoginDto) {
     const token = await this.authService.login(dto);
     if (!token) throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-    return { access_token: token };
+    return { accessToken: token };
   }
 }
